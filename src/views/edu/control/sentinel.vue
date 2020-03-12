@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    <iframe src="http://www.baidu.com" id="mobsf" scrolling="no" frameborder="0" style="position:absolute;margin-top:2px 3px;"></iframe>
+    <iframe src="http://localhost:8080" id="mobsf" scrolling="no" frameborder="0" style="position:absolute;margin-top:2px 3px;"></iframe>
   </div>
 </template>
  

@@ -37,7 +37,7 @@
     <el-dialog :visible.sync="dialogFormVisible" title="添加一级分类">
       <el-form :model="subject" label-width="120px">
         <el-form-item label="分类标题">
-          <el-input v-model="subject.title" maxlength="10"/>
+          <el-input v-model="subject.title" maxlength="25"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -50,7 +50,7 @@
     <el-dialog :visible.sync="dialogFormVisible2" title="添加子级分类">
       <el-form :model="subject" label-width="120px">
         <el-form-item label="分类标题">
-          <el-input v-model="subject.title" maxlength="10" />
+          <el-input v-model="subject.title" maxlength="25" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

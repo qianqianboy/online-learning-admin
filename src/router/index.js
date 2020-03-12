@@ -500,6 +500,52 @@ export const asyncRouterMap = [
     ]
   },
 
+  //统计分析
+  {
+    path: '/statistics/daily',
+    component: Layout,
+    redirect: '/statistics/daily/create',
+    name: 'Statistics',
+    meta: { title: '统计分析', icon: 'chart' },
+    children: [
+      {
+        path: 'create',
+        name: 'StatisticsDailyCreate',
+        component: () => import('@/views/statistics/daily/create'),
+        meta: { title: '生成统计' }
+      },
+      {
+        path: 'chart',
+        name: 'StatisticsDayChart',
+        component: () => import('@/views/statistics/daily/chart'),
+        meta: { title: '统计图表' }
+      } 
+    ]
+  },
+
+  //Swagger文档
+  {
+    path: '/edu/control/swagger',
+    component: Layout,
+    redirect: '/edu/control/swagger/courseManagement',
+    name: 'Statistics',
+    meta: { title: 'Swagger文档', icon: 'list' },      
+    children: [
+      {
+        path: '/edu/control/swagger/courseManagement',
+        name: 'courseManagement',
+        component: () => import('@/views/edu/control/swagger/courseManagement'),
+        meta: { title: '课程管理API文档', icon: 'qq' }  
+      },
+      {
+        path: '/edu/control/swagger/teacherManagement',
+        name: 'teacherManagement',
+        component: () => import('@/views/edu/control/swagger/teacherManagement'),
+        meta: { title: '讲师管理API文档', icon: 'theme' }  
+      }    
+    ]
+  },
+
   // 应用监控路由
   {
     path: '/edu/control', //
@@ -510,11 +556,9 @@ export const asyncRouterMap = [
     meta: { title: '系统监控', icon: 'nested' },
     children: [
       {
-        path: 'http://localhost:7000/nacos',
-        meta: { title: 'Swagger文档', icon: 'qq' }
-      },
-      {
-        path: 'http://localhost:8848/nacos',
+        path: 'nacos',
+        name: 'Nacos',
+        component: () => import('@/views/edu/control/nacos'),
         meta: { title: 'Nacos服务治理', icon: 'tab' }
       },
       {

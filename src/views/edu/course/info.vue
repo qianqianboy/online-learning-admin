@@ -63,8 +63,14 @@
     <el-input-number :min="0" :precision="2" :step="0.01" v-model="courseInfo.price" controls-position="right" placeholder="免费课程请设置为0元"/> 元
   </el-form-item>
 
+ <!-- 课程封面-->
+  <el-form-item label="封面预览">
+    <!-- 课程封面缩略图 -->
+    <img width="450px" height="280px" :src="courseInfo.cover"/>
 
- <el-form-item label="课程封面">
+  </el-form-item>
+
+ <el-form-item label="更换封面">
   <el-upload
     ref="upload"
     :action="BASE_API+'/admin/oss/file/upload?host=cover'"
@@ -89,12 +95,7 @@
 
 
 
-  <!-- 课程封面-->
-  <el-form-item label="封面预览">
-    <!-- 课程封面缩略图 -->
-    <img width="600px" height="350px" :src="courseInfo.cover"/>
-
-  </el-form-item>
+ 
 
   <!-- 课程简介-->
   <el-form-item label="课程简介">
@@ -116,6 +117,7 @@ import Tinymce from '@/components/Tinymce'
 
 
 const defaultForm = {
+  id: '',
   title: '',
   subjectGrandParentId: '',
   subjectParentId: '',
@@ -246,14 +248,28 @@ export default {
       }).catch((response) => {
         this.$message({
           type: 'error',
-          message: response.message
+          message: response.data.message
         })
       })
     },
     //修改课程基本信息
     updateData() {
-
-      this.$router.push({ path: '/edu/course/chapter/1' })
+        this.saveBtnDisabled = true
+        course.updateCourseInfoById(this.courseInfo).then(response => {
+            this.$message({
+                type: 'success',
+                message: '修改成功!'
+            })
+            return response// 将响应结果传递给then
+        }).then(response => {
+            this.$router.push({ path: '/edu/course/chapter/' + this.courseInfo.id })
+        }).catch((response) => {
+            // console.log(response)
+            this.$message({
+                type: 'error',
+                message: '保存失败'
+            })
+        })
     },
 
 
@@ -299,33 +315,7 @@ export default {
             type: "error",
             message: "上传失败"
           });
-        },
-
-
-
-
-
-
-
-
-
-
-
-    // 上传成功后的回调函数
-    cropSuccess(data) {
-      
-      this.imagecropperShow = false
-      this.courseInfo.cover = data.data.url
-      // 上传成功后，重新打开上传组件时初始化组件，否则显示上一次的上传结果
-      this.imagecropperKey = this.imagecropperKey + 1
-    },
-
-    // 关闭上传组件
-    close() {
-      this.imagecropperShow = false
-      // 上传失败后，重新打开上传组件时初始化组件，否则显示上一次的上传结果
-      this.imagecropperKey = this.imagecropperKey + 1
-    }
+        }
   }
 }
 </script>
